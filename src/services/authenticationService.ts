@@ -8,9 +8,12 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export async function sessionConfirmation( token: string){
+    
+    const infoToken = await authentication.findSessionByToken(token);
+    if(!infoToken)  throw {type:401,message:'token does not exist'}
 
     try {
-
+        
         const dados = jwt.verify(token, process.env.JWT_SECRET);
         return token;
 

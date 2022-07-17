@@ -17,3 +17,10 @@ export async function session(session: CreateSession){
    await prisma.session.create({data: session});
 
 }
+
+export async function findSessionByToken(token: string){
+
+   const session = await prisma.session.findFirst({where:{token:token}});
+
+   return session;
+}
