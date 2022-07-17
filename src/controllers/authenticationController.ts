@@ -5,10 +5,18 @@ import * as authentication from '../services/authenticationService.js';
 export async function login(req: Request, res: Response){
 
     const { email, password } = req.body;
+    const  authorization  = req.headers.authorization;
+    const token = authorization?.replace('Bearer', '').trim();
 
-    await authentication.login(email,password);
-    
-    res.status(200).send('logou');
+    let tokenSession = '';
+    if(!token){
+        tokenSession = await authentication.login(email,password);
+    }
+    else{
+        tokenSession = await authentication.sessionConfirmation(token);
+    }
+
+    res.status(200).send(tokenSession);
 }
 
 export async function register(req: Request, res: Response){ 

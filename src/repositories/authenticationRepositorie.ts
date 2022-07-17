@@ -1,13 +1,19 @@
-import { User } from '@prisma/client';
+import { User, Session} from '@prisma/client';
 import prisma from '../database/database.js'
 
 
 
 export type CreateUser = Omit<User, "id"|"createdAt"|"updatedAt">;
+export type CreateSession = Omit<Session, "id"|"createdAt">;
 
+export async function create(user: CreateUser){
 
-export async function createUser(user: CreateUser){
-
-   const insert = await prisma.user.create({data:user});
+   await prisma.user.create({data:user});
    
+}
+
+export async function session(session: CreateSession){
+
+   await prisma.session.create({data: session});
+
 }
