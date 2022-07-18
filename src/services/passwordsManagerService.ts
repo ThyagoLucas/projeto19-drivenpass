@@ -1,6 +1,6 @@
-import { encrypt, decrypt, userIdByToken } from '../../utils/userUtils.js';
+import { encrypt, decrypt, userIdByToken } from '../utils/userUtils.js';
 import * as manager from '../repositories/passwordsManagerRepositorie.js'
-import jwt from 'jsonwebtoken';
+
 
 export async function insertCredential(token: string, title: string, url: string, user: string, password:string){
 
