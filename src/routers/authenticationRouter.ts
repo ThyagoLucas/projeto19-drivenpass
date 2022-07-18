@@ -1,5 +1,5 @@
 import { Router } from "express";
-import createUserSchema from "../../schemas/createUserSchema.js";
+import createUserSchema from "../schemas/createUserSchema.js";
 import { login, register } from "../controllers/authenticationController.js";
 import { schemaValidation } from "../Middlewares/schemaValidationMiddleware.js";
 

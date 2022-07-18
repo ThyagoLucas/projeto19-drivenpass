@@ -2,7 +2,6 @@ import {  Request, Response } from "express";
 import * as authentication from '../services/authenticationService.js';
 import * as passwordsServices from "../services/passwordsManagerService.js";
 
-
 export async function insertCredential( req: Request, res: Response ){
 
     const { title, url, user, password } = req.body;
@@ -24,7 +23,6 @@ export async function getCredentials( req: Request, res: Response){
     const credentials = await passwordsServices.getCredentials(token);
 
     res.status(200).send(credentials);
-
 
 }
 
