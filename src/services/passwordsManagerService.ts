@@ -28,14 +28,31 @@ export async function insertCredential(token: string, title: string, url: string
 
 }
 
-export async function getCredentials(token: string){
+export async function findMany(token: string){
 
   const userId = userIdByToken(token);
 
   const credentials = await manager.findAllCredentials(userId);
 
+  for(let value of credentials){
+
+    value.password = decrypt(value.password)
+
+  }
+
   return credentials;
 
+}
+
+export async function findOne(token: string, credentialId: string){
+
+  const userId = userIdByToken(token);
+
+  const credential = await manager.findUserCredential(userId, Number(credentialId));
+
+  if(!credential) throw {type: 401,message:'credential does not exist for this user'}
+
+  return credential;
 }
 
 export async function deleteCredential(token: string, credentialId: string){

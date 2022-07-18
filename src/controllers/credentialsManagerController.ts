@@ -16,13 +16,20 @@ export async function insertCredential( req: Request, res: Response ){
 
 export async function getCredentials( req: Request, res: Response){
 
+    // check session
     const { authorization } = req.headers;
     const token = authorization?.replace('Bearer','').trim();
-
     await authentication.sessionConfirmation(token);
-    const credentials = await passwordsServices.getCredentials(token);
 
-    res.status(200).send(credentials);
+    const { credentialId } = req.body;
+    let credentialOrCredentials = {}
+
+    
+    if(credentialId) credentialOrCredentials = await passwordsServices.findOne(token, credentialId);
+
+    else credentialOrCredentials = await passwordsServices.findMany(token);
+
+    res.status(200).send(credentialOrCredentials);
 
 }
 
