@@ -54,3 +54,13 @@ export async function findOne(token: string, cardId: string){
     return card;
 
 }
+
+export async function deleteOne(token: string, cardId: string){
+
+    const userId = userIdByToken(token);
+
+    const deleted = await cardRepository.deleteOne(userId, Number(cardId));
+    
+    if( deleted.count == 0 ) throw {type:401, message: 'card id does not exist'};
+
+}

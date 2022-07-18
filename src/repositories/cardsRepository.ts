@@ -30,3 +30,10 @@ export async function findOne(userId: number, cardId:number){
 
     return card;
 }
+
+export async function deleteOne(userId:number, cardId:number){
+
+    const deleted =  await prisma.cards.deleteMany({where:{userId: userId, id: cardId}})
+
+    return deleted;
+}

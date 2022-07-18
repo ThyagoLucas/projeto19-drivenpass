@@ -38,3 +38,21 @@ export async function findOneOrMany( req: Request, res: Response ){
     res.status(200).send(cardOrCards)
 
 }
+
+export async function deleteOne( req: Request, res: Response ){
+
+    // check session and token
+    const { authorization } = req.headers;
+    const token = authorization?.replace('Bearer', '').trim();
+    await auth.sessionConfirmation(token);
+
+    const { cardId } = req.body;
+    await managerCards.deleteOne(token, cardId);
+
+
+    res.status(201).send('deleted');
+
+
+}
+
+
