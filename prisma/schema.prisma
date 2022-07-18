@@ -8,13 +8,14 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  name      String
-  email     String    @unique
-  password  String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @default(now())
-  sessions  Session[]
+  id          Int          @id @default(autoincrement())
+  name        String
+  email       String       @unique
+  password    String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now())
+  credentials Credential[]
+  sessions    Session[]
 
   @@map("users")
 }
@@ -27,4 +28,16 @@ model Session {
   users     User     @relation(fields: [userId], references: [id])
 
   @@map("sessions")
+}
+
+model Credential {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  title     String   @unique
+  url       String
+  password  String
+  createdAt DateTime @default(now())
+  users     User     @relation(fields: [userId], references: [id])
+  @@unique([userId, title])
+  @@map("credentials")
 }

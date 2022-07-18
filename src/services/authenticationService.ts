@@ -11,7 +11,7 @@ export async function sessionConfirmation( token: string){
     
     const infoToken = await authentication.findSessionByToken(token);
     if(!infoToken)  throw {type:401,message:'token does not exist'}
-
+    
     try {
         
         const dados = jwt.verify(token, process.env.JWT_SECRET);
@@ -19,7 +19,7 @@ export async function sessionConfirmation( token: string){
 
     } catch (error) {
 
-        throw {type:401,message:'token expired'}
+        throw {type:401,message:'invalid token'}
     }
 
 }
