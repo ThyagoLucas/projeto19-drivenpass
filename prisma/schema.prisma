@@ -14,6 +14,7 @@ model User {
   password    String
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @default(now())
+  cards       Cards[]
   credentials Credential[]
   secureNotes SecureNotes[]
   sessions    Session[]
@@ -54,4 +55,21 @@ model SecureNotes {
 
   @@unique([userId, title])
   @@map("secureNotes")
+}
+
+model Cards {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  title      String
+  number     String
+  cvc        String
+  password   String
+  expiration String
+  isVirtual  Boolean
+  createdAt  DateTime @default(now())
+  name       String
+  users      User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, title])
+  @@map("cards")
 }
