@@ -18,3 +18,21 @@ export async function insert ( token: string, title: string, content: string ){
     await secureNoteRepository.insert(note);
 
 }
+
+export async function findOne (token: string, noteId: string){
+
+    const userId = userIdByToken(token);
+    const note = await secureNoteRepository.findOneTitle(userId,Number( noteId));
+
+    if(!note) throw{type:400, message:'Secure Note id does not exist'}
+    
+    return note
+}
+
+export async function findMany (token: string){
+
+    const userId = userIdByToken(token);
+    const notes = await secureNoteRepository.findManyTitles(userId);
+
+    return notes;
+}

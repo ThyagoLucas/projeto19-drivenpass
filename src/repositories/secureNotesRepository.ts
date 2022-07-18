@@ -16,4 +16,20 @@ export async function findByTitle (title: string){
 
 }
 
+export async function findOneTitle(userId: number, noteId: number){
+
+    const note = await prisma.secureNotes.findFirst({where:{userId:userId, id:noteId}})
+
+    return note;
+
+}
+
+
+export async function findManyTitles(userId: number){
+
+    const notes = prisma.secureNotes.findMany({where:{userId:userId}})
+
+    return notes;
+}
+
 

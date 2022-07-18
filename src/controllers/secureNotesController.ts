@@ -16,3 +16,22 @@ export async function insertSecureNote(req: Request, res: Response){
     res.sendStatus(201);
 
 }
+
+export async function findNoteOrNotes(req: Request, res: Response){
+
+    const { noteId } = req.body;
+    const { authorization } = req.headers;
+    const token = authorization?.replace('Bearer','').trim();
+
+    // check is valid token
+    await authentication.sessionConfirmation(token);
+
+    let noteOrNotes = {};
+    
+    if(!noteId) noteOrNotes = await secureNotes.findMany(token);
+
+    else noteOrNotes = await secureNotes.findOne(token, noteId);
+    
+    res.status(200).send(noteOrNotes);
+
+}
