@@ -35,3 +35,18 @@ export async function findNoteOrNotes(req: Request, res: Response){
     res.status(200).send(noteOrNotes);
 
 }
+
+export async function deleteSecureNote(req: Request, res: Response){
+
+    const { noteId } = req.body;
+    const { authorization } = req.headers;
+    const token = authorization?.replace('Bearer','').trim();
+
+    // check is valid token
+    await authentication.sessionConfirmation(token);
+
+    await secureNotes.deleteOne(token, noteId)
+
+    res.status(200).send('deleted');
+
+}

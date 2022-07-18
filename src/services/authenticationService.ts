@@ -1,4 +1,4 @@
-import { CreateSession } from './../repositories/authenticationRepositorie';
+import { CreateSession } from '../repositories/authenticationRepositorie';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import * as authentication from '../repositories/authenticationRepositorie.js';

@@ -55,4 +55,3 @@ model SecureNotes {
   @@unique([userId, title])
   @@map("secureNotes")
 }
-
